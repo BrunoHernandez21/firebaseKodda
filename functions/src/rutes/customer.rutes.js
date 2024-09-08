@@ -32,7 +32,7 @@ exports.newCustomer = async (req, res) => {
   const params = generateParams(req.path);
   const method = req.method;
 
-  if (params.length == 0 && method == "POST") {
+  if (params[0] === "inbound" && params[1] === "newCustomer" && method == "POST") {
     if (validateBody(req, res, customerSchemaCreate)) {
       return;
     }

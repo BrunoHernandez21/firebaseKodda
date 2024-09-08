@@ -14,7 +14,7 @@ const createEmail = async (req, res) => {
   try {
     const id = await emailService.createEmail(req.body);
     return res.send({
-      status: "complete",
+      status: "created",
       id: id,
     });
   } catch (error) {
@@ -24,10 +24,10 @@ const createEmail = async (req, res) => {
 
 const createAndSendEmail = async (req, res) => {
   try {
-    const user = await emailService.createAndSendEmail(req.body);
+    const id = await emailService.createAndSendEmail(req.body);
     return res.send({
-      status: "complete",
-      userId: user,
+      status: "created",
+      id: id,
     });
   } catch (error) {
     return handleError(req, res, error);
@@ -36,15 +36,15 @@ const createAndSendEmail = async (req, res) => {
 
 const updateEmailById = async (req, res, params) => {
   const toUpdate = {
-    name: req.body.name,
+    status: req.body.status,
     type: req.body.type,
-    objective: req.body.objective,
+    userId: req.body.userId,
   };
   try {
     const user = await emailService.updateEmail(toUpdate, params[0]);
     return res.send(user);
   } catch (error) {
-    return res.status(500).send({error: "Internal Error"});
+    return handleError(req, res, error);
   }
 };
 

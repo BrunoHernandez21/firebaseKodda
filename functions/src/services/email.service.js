@@ -18,9 +18,9 @@ const createAndSendEmail = async (data) => {
     updatedAt: time,
     sentAt: time,
   };
-  const response = await emailRepository.createEmail(emailModel);
-  // send email
-  return response;
+  //TODO: function send email
+  const recordRef = await emailRepository.createEmail(emailModel);
+  return recordRef.key;
 };
 const getEmail = async (id) => {
   const snapshotOut = await emailRepository.getEmail(id);

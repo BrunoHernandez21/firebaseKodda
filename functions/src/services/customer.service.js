@@ -1,12 +1,9 @@
 const customerRepository = require("./../repository/customer.repository");
 const emailRepository = require("./../repository/email.repository");
-const logger = require("firebase-functions/logger");
 
 const createCustomer = async (data) => {
   const snapshotCustomer = await customerRepository.getCustomerByEmail(data.email);
-  if (snapshotCustomer.exists()) {
-    logger.info("3"); throw new Error("DuplicateKey");
-  }
+  if (snapshotCustomer.exists()) throw new Error("DuplicateKey");
   const recordRef = await customerRepository.createCustomer(data);
 
   const time = (new Date()).toISOString();

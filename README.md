@@ -23,6 +23,9 @@ Generate the following rules:
 }
 ```
 
-**To Start the Project**
-To start the project, you can use `npm run serve`
-To deploy changes to Firebase, use `npm run deploy`
+### To Start the Project
+To start the project, you can use `npm run serve`.
+To deploy changes to Firebase, use `npm run deploy`.
+
+### To continue with the project
+See a full list of supported triggers at `https://firebase.google.com/docs/functions`

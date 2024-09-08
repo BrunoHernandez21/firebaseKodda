@@ -4,7 +4,7 @@ const {handleError} = require("./../midelwares/handleError.midelware");
 const createCustomer = async (req, res) => {
   try {
     const user = await customerService.createCustomer(req.body);
-    return res.send({status: "complete", userId: user});
+    return res.send({status: "created", userId: user});
   } catch (error) {
     return handleError(req, res, error);
   }
@@ -40,7 +40,7 @@ const deleteCustomerById = async (req, res, params) => {
   try {
     await customerService.deleteCustomer(params[0]);
     return res.send({
-      message: `el usuario ${params[0]} no existe en la base de datos`,
+      message: `The user ${params[0]} does not exist in the database`,
     });
   } catch (error) {
     return handleError(req, res, error);

@@ -12,24 +12,18 @@ exports.rutes = async (req, res) => {
       case "GET":
         return await emailControler.getEmailById(req, res, params);
       case "PUT":
-        if (validateBody(req, res, emailSchema)) {
-          return;
-        }
+        if (validateBody(req, res, emailSchema)) return;
         return await emailControler.updateEmailById(req, res, params);
       case "POST":
-        if (params[1] != "now") {
+        if (params[0] != "now") {
           return res.status(404).send({error: "Not found"});
         }
-        if (validateBody(req, res, emailSchema)) {
-          return;
-        }
+        if (validateBody(req, res, emailSchema)) return;
         return await emailControler.createAndSendEmail(req, res, params);
     }
   } else if (params.length == 0) {
     if (method == "POST") {
-      if (validateBody(req, res, emailSchema)) {
-        return;
-      }
+      if (validateBody(req, res, emailSchema)) return;
       return await emailControler.createEmail(req, res);
     }
   }
