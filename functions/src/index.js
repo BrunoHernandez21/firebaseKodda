@@ -9,8 +9,8 @@
 
 const {onRequest} = require("firebase-functions/v2/https");
 
-const customerRouter = require('./rutes/customer.rutes');
-const emailLogsRouter = require('./rutes/email.rutes');
+const customerRouter = require("./rutes/customer.rutes");
+const emailLogsRouter = require("./rutes/email.rutes");
 // const logger = require("firebase-functions/logger");
 
 exports.customer = onRequest(customerRouter.rutes);

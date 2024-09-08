@@ -1,41 +1,42 @@
-const { generateParams } = require("./../utils/generateParams");
+const {generateParams} = require("./../utils/generateParams");
 const customerControler = require("./../controllers/customer.controller");
-const { validateBody } = require("./../midelwares/validateBody.midelware");
-const { customerSchemaCreate, customerSchemaUpdate } = require("./../schemas/customer.schema");
+const {validateBody} = require("./../midelwares/validateBody.midelware");
+const {customerSchemaCreate, customerSchemaUpdate} = require("./../schemas/customer.schema");
 
 exports.rutes = async (req, res) => {
+  const params = generateParams(req.path);
+  const method = req.method;
 
-    const params = generateParams(req.path);
-    const method = req.method;
-
-    if (params.length == 1){
-        switch (method) {
-            case 'GET':
-                return await customerControler.getCustomerById(req,res,params);
-            case 'PUT':
-                if (validateBody(req,res,customerSchemaUpdate)) { return;}
-                return await customerControler.updateCustomerById(req,res,params);
-            case 'DELETE':
-                return await customerControler.deleteCustomerById(req,res,params);
-    
+  if (params.length == 1) {
+    switch (method) {
+      case "GET":
+        return await customerControler.getCustomerById(req, res, params);
+      case "PUT":
+        if (validateBody(req, res, customerSchemaUpdate)) {
+          return;
         }
-    } else if (params.length == 0 && method == "POST"){
-        if (validateBody(req,res,customerSchemaCreate) ) { return; }
-        return await customerControler.createCustomer(req,res);
+        return await customerControler.updateCustomerById(req, res, params);
+      case "DELETE":
+        return await customerControler.deleteCustomerById(req, res, params);
     }
-    return res.status(404).send({ error: 'Not found' });
-    
-}
+  } else if (params.length == 0 && method == "POST") {
+    if (validateBody(req, res, customerSchemaCreate) ) {
+      return;
+    }
+    return await customerControler.createCustomer(req, res);
+  }
+  return res.status(404).send({error: "Not found"});
+};
 
 exports.newCustomer = async (req, res) => {
-    const params = generateParams(req.path);
-    const method = req.method;
+  const params = generateParams(req.path);
+  const method = req.method;
 
-    if (params.length == 0 && method == "POST"){
-        if (validateBody(req,res,customerSchemaCreate)) { return; }
-        return await customerControler.createCustomer(req,res);
-        
+  if (params.length == 0 && method == "POST") {
+    if (validateBody(req, res, customerSchemaCreate)) {
+      return;
     }
-    return res.status(404).send({ error: 'Not found' });
-
-}
+    return await customerControler.createCustomer(req, res);
+  }
+  return res.status(404).send({error: "Not found"});
+};
